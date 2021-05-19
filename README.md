@@ -1,5 +1,5 @@
 # work2-Backstage
-商品網站後台，純Javascript
+商品網站後台，純Javascript，練習RESTful API串接(使用axios)
 
 # 頁面
 - [登入頁](https://peterchen-jianrong.github.io/work2-Backstage/login.html)
