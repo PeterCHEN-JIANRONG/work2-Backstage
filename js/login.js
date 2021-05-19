@@ -12,7 +12,7 @@ checkBtn.addEventListener("click", checkLoginStatus);
 
 function login(e) {
     // 移除submit預設行為，或可改 type="button"
-    // e.preventDefault();
+    e.preventDefault();
     const username = usernameDOM.value;
     const password = passwordDOM.value;
     const user = {
@@ -22,7 +22,6 @@ function login(e) {
 
     axios.post(`${api_base_url}/admin/signin`, user)
         .then(res => {
-            console.log(res.data.token);
             if (res.data.success) {
                 const token = res.data.token;
                 const expired = res.data.expired;
@@ -49,7 +48,6 @@ function checkLoginStatus() {
 
     axios.post(`${api_base_url}/api/user/check`)
         .then(res => {
-            console.log(res);
             if (res.data.success) {
                 checkBtn.classList.add("btn-success");
                 checkBtn.textContent = "檢查(已登入)"

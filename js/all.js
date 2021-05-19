@@ -5,8 +5,14 @@ const app = {
     getData() {
         axios.get(`${api_base_url}/api/${api_path}/admin/products?page=:page`)
             .then(res => {
-                this.data.products = res.data.products;
-                this.render();
+                if (res.data.success) {
+                    this.data.products = res.data.products;
+                    this.render();
+                } else {
+                    alert(res.data.message);
+                    window.location = "login.html";
+                    return
+                }
             })
     },
     render() {
@@ -57,6 +63,8 @@ const app = {
                     const product = this.data.products.find(item => item.id === productId);
                     alert(`${res.data.message}，產品名稱:${product.title}，產品ID:${product.id}`);
                     this.getData();
+                } else {
+                    alert(res.data.message);
                 }
             })
             .catch(err => {
@@ -66,6 +74,11 @@ const app = {
     init() {
         // get token, add token to headers
         const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+        if (!token) {
+            alert("尚未登入");
+            window.location = "login.html";
+            return
+        }
         axios.defaults.headers.common['Authorization'] = token;
         this.getData();
     }
