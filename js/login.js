@@ -23,8 +23,8 @@ function login(e) {
     axios.post(`${api_base_url}/admin/signin`, user)
         .then(res => {
             if (res.data.success) {
-                const token = res.data.token;
-                const expired = res.data.expired;
+                // 解構賦值
+                const { token, expired } = res.data;
                 // set cookie, expired設置有效時間
                 document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
                 // checkLoginStatus();
